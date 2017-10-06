@@ -1,8 +1,21 @@
 package org.txbiomed;
 
 
+
+
+import java.util.Enumeration;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import org.apache.log4j.Appender;
+import org.apache.log4j.Layout;
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
+import org.apache.log4j.spi.ErrorHandler;
+import org.apache.log4j.spi.Filter;
+import org.apache.log4j.spi.LoggingEvent;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
@@ -23,6 +36,9 @@ import org.txbiomed.entities.Name;
 @SpringBootApplication
 public class Example implements ApplicationRunner{
 
+    private final Logger logger = LogManager.getLogger(Example.class);
+      
+
     @Override
     public void run(ApplicationArguments aa) throws Exception {
         System.out.println("!!!!!!!!!!!!!THIS WILL RUN!!!!!");
@@ -42,6 +58,12 @@ public class Example implements ApplicationRunner{
     private EntityManagerFactory emf;
     @RequestMapping("/")
     String home(){
+        
+        
+      
+        logger.setLevel(Level.FATAL);
+        
+        logger.log(Level.INFO, "FATAL ERROR");
         EntityManager entityManager;
         entityManager = emf.createEntityManager();
         entityManager.getTransaction().begin();
